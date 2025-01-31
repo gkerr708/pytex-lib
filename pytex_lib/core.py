@@ -1,4 +1,5 @@
 from pathlib import Path
+#import pandas
 
 def write_to_latex(func):
     """
