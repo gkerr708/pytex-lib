@@ -42,18 +42,12 @@ def write_to_latex(func):
 
 if __name__ == '__main__':
 
-
     @write_to_latex
     def get_output():
         return 'Hello, World!'
 
-    #help(get_output)
     help(write_to_latex)
-    exit()
 
-    file_path = '/home/kerr/code/pytex/pytex/test.tex'
-    keyword = 'keyword'
-    get_output(file_path = file_path, keyword = 'keyword')
 
 
 
