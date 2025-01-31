@@ -1,6 +1,6 @@
 [project]
 name = "pytex-lib"
-version = "0.1.2"
+version = "0.1.3"
 description = "Allows you to output your python functions directly to a LaTeX file."
 authors = [
     {name = "XPS-13",email = "gavin.kerr@dal.ca"}
@@ -15,3 +15,6 @@ dependencies = [
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[project.urls]
+repository = "https://github.com/gkerr708/pytex-lib"
