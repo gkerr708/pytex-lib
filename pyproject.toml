@@ -1,6 +1,6 @@
 [project]
 name = "pytex-lib"
-version = "0.1.4"
+version = "0.1.5"
 description = "Allows you to output your python functions directly to a LaTeX file."
 authors = [
     {name = "XPS-13",email = "gavin.kerr@dal.ca"}
