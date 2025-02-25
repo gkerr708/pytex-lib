@@ -4,37 +4,57 @@
 
 ## Example Usage
 
-Import the library:
+### Import the Library
 
 ```python
 from pytex_lib import write_to_latex
 ```
 
-Use the `write_to_latex` decorator to automatically output your function's result to a LaTeX file:
+### Define a Function
+
+Use the `@write_to_latex` decorator to output your function’s result to a LaTeX file:
 
 ```python
 @write_to_latex
-def f(x):
-    return x**2
+def compute_square(x):
+    return f"The square of {x} is {x**2}"
 ```
 
-Call the function with the `file_path` and `keyword` parameters:
+### Initial LaTeX Document (`document.tex`)
 
-```python
-file_path = "Path/to/latex/doc"
-keyword = "keyword in latex doc"
-f(file_path=file_path, keyword=keyword)
-```
-
-This will modify your LaTeX document as follows:
+Before calling the function, your LaTeX document (`document.tex`) might look like this:
 
 ```latex
 \documentclass{article}
 \begin{document}
 
-The answer is 
-% keyword in latex doc
-(answer from f(x) = x^2)
+Here is the computed result:
+% RESULT_PLACEHOLDER
+
+\end{document}
+```
+
+### Call the Function
+
+Now, execute the function, specifying the LaTeX file and the keyword where the result should be inserted:
+
+```python
+file_path = "document.tex"
+keyword = "RESULT_PLACEHOLDER"
+compute_square(4, file_path=file_path, keyword=keyword)
+```
+
+### Updated LaTeX Document (`document.tex`)
+
+After running the function, `document.tex` will be updated as follows:
+
+```latex
+\documentclass{article}
+\begin{document}
+
+Here is the computed result:
+% RESULT_PLACEHOLDER
+(The square of 4 is 16)
 
 \end{document}
 ```
