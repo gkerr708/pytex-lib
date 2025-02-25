@@ -10,7 +10,7 @@
 from pytex_lib import write_to_latex
 ```
 
-### Define a Function
+### Define a Function using the write_to_latex Decorator
 
 Use the `@write_to_latex` decorator to output your function’s result to a LaTeX file:
 
@@ -34,7 +34,7 @@ Here is the computed result:
 \end{document}
 ```
 
-### Call the Function
+### Call the Function with the LaTeX File and Keyword
 
 Now, execute the function, specifying the LaTeX file and the keyword where the result should be inserted:
 
@@ -48,13 +48,12 @@ compute_square(4, file_path=file_path, keyword=keyword)
 
 After running the function, `document.tex` will be updated as follows:
 
-```latex
-\documentclass{article}
+```latex \documentclass{article}
 \begin{document}
 
 Here is the computed result:
 % RESULT_PLACEHOLDER
-(The square of 4 is 16)
+The square of 4 is 16
 
 \end{document}
 ```
