@@ -1,19 +1,16 @@
 # pytex-lib
 
-Allows you to output your python functions directly to a LaTeX file.
+**pytex-lib** is a Python library that simplifies inserting function outputs into LaTeX documents. The `@write_to_latex` decorator allows you to automatically write function results into a specified LaTeX file at a predefined keyword location. This is particularly useful for dynamically generating LaTeX reports, papers, or documents with computed values. Installation is straightforward via `pip install pytex-lib`, and integration requires minimal setup.
 
-# TODO
+## Example Usage
 
-- [ ] Figure out out how to core file allows you to import it easier
+Import the library:
 
-# Example Usage
-
-Import with
 ```python
 from pytex_lib import write_to_latex
 ```
 
-Then you can use the `write_to_latex` decorator to output your functions to a LaTeX file.
+Use the `write_to_latex` decorator to automatically output your function's result to a LaTeX file:
 
 ```python
 @write_to_latex
@@ -21,7 +18,7 @@ def f(x):
     return x**2
 ```
 
-You call the function with the `directory` and the `keyword` like this
+Call the function with the `file_path` and `keyword` parameters:
 
 ```python
 file_path = "Path/to/latex/doc"
@@ -29,7 +26,7 @@ keyword = "keyword in latex doc"
 f(file_path=file_path, keyword=keyword)
 ```
 
-Then your latex doc should look like this
+This will modify your LaTeX document as follows:
 
 ```latex
 \documentclass{article}
@@ -37,18 +34,13 @@ Then your latex doc should look like this
 
 The answer is 
 % keyword in latex doc
-(answer form f(x) = x^2)
+(answer from f(x) = x^2)
 
 \end{document}
 ```
 
-# Installation
+## Installation
 
 ```bash
 pip install pytex-lib
 ```
-
-
-
-
-

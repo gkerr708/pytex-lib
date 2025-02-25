@@ -15,7 +15,7 @@ if __name__ == "__main__":
     keyword = "keyword in latex doc"
 
     # Answer to be written to the latex doc
-    answer = "Response from python script."
+    answer = "Response from python script1234."
 
     # Call the test function 
     get_output(
