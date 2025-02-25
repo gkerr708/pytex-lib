@@ -1,6 +1,6 @@
 [project]
 name = "pytex-lib"
-version = "0.1.5"
+version = "0.1.7"
 description = "Allows you to output your python functions directly to a LaTeX file."
 authors = [
     {name = "XPS-13",email = "gavin.kerr@dal.ca"}
@@ -9,6 +9,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "numpy (>=2.2.2,<3.0.0)",
+    "click (>=8.1.8,<9.0.0)",
 ]
 
 

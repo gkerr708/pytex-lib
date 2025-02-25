@@ -1,0 +1,19 @@
+# Fdb version 4
+["pdflatex"] 1740511642 "test.tex" "test.pdf" "test" 1740511642 0
+  "/home/kerr/.miktex/texmfs/data/fonts/map/pdftex/pdftex.map" 1737985068 370419 f6e684c22f05bde61de54bb0d1065ab5 ""
+  "/home/kerr/.miktex/texmfs/data/miktex/data/le/pdftex/pdflatex.fmt" 1737060519 24134986 f408bbae718d20cc3ebfcb3934791096 ""
+  "/usr/local/share/miktex-texmf/fonts/tfm/public/cm/cmbx12.tfm" 1676056092 1324 c910af8c371558dc20f2d7822f66fe64 ""
+  "/usr/local/share/miktex-texmf/fonts/tfm/public/cm/cmr12.tfm" 1676056092 1288 655e228510b4c2a1abe905c368440826 ""
+  "/usr/local/share/miktex-texmf/fonts/tfm/public/cm/cmr17.tfm" 1676056092 1292 296a67155bdbfc32aa9c636f21e91433 ""
+  "/usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1676056084 32080 340ef9bf63678554ee606688e7b5339d ""
+  "/usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1676056084 32722 d7379af29a190c3f453aba36302ff5a9 ""
+  "/usr/local/share/miktex-texmf/tex/latex/base/article.cls" 1694708704 20144 fbcf51733730d8f1a62143512ff5b1fe ""
+  "/usr/local/share/miktex-texmf/tex/latex/base/size12.clo" 1694708704 8449 9de778d73ba774a5f2bd601f23f8922e ""
+  "/usr/local/share/miktex-texmf/tex/latex/l3backend/l3backend-pdftex.def" 1694708703 29940 9473d58112bc8a88f5505b823a053dde ""
+  "test.aux" 1740511642 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "test.tex" 1740511642 166 48b391d4dfb55d0b16d95044fdfe7a47 ""
+  (generated)
+  "test.aux"
+  "test.log"
+  "test.pdf"
+  (rewritten before read)
