@@ -1,0 +1,10 @@
+README.md
+pyproject.toml
+pytex_lib/__init__.py
+pytex_lib/core.py
+pytex_lib.egg-info/PKG-INFO
+pytex_lib.egg-info/SOURCES.txt
+pytex_lib.egg-info/dependency_links.txt
+pytex_lib.egg-info/requires.txt
+pytex_lib.egg-info/top_level.txt
+tests/test.py
