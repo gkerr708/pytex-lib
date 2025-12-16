@@ -1,18 +1,23 @@
 # pytex-lib
 
-**pytex-lib** is a Python library that simplifies inserting function outputs into LaTeX documents. The `@write_to_latex` decorator allows you to automatically write function results into a specified LaTeX file at a predefined keyword location. This is particularly useful for dynamically generating LaTeX reports, papers, or documents with computed values. Installation is straightforward via `pip install pytex-lib`, and integration requires minimal setup.
+**pytex-lib** is a Python library for inserting function outputs directly into LaTeX documents.
+The `@write_to_latex` decorator automatically writes a function’s return value into a LaTeX
+file at a specified keyword location.
+
+This is useful for generating LaTeX reports, papers, or documents that include computed
+results without manual editing.
 
 ## Example Usage
 
 ### Import the Library
 
 ```python
-from pytex_lib import wtl
-```
+from pytex_lib import write_to_latex
+````
 
-### Define a Function using the write_to_latex Decorator
+### Define a Function Using the Decorator
 
-Use the `@write_to_latex` decorator to output your function’s result to a LaTeX file:
+Decorate a function that returns a string:
 
 ```python
 @write_to_latex
@@ -22,7 +27,7 @@ def compute_square(x):
 
 ### Initial LaTeX Document (`document.tex`)
 
-Before calling the function, your LaTeX document (`document.tex`) might look like this:
+The output will be inserted **immediately after** the line containing the keyword.
 
 ```latex
 \documentclass{article}
@@ -34,21 +39,24 @@ Here is the computed result:
 \end{document}
 ```
 
-### Call the Function with the LaTeX File and Keyword
+### Call the Function
 
-Now, execute the function, specifying the LaTeX file and the keyword where the result should be inserted:
+Provide the LaTeX file path and keyword at call time:
 
 ```python
-file_path = "document.tex"
-keyword = "RESULT_PLACEHOLDER"
-compute_square(4, file_path=file_path, keyword=keyword)
+compute_square(
+    4,
+    file_path="document.tex",
+    keyword="RESULT_PLACEHOLDER",
+)
 ```
 
-### Updated LaTeX Document (`document.tex`)
+### Updated LaTeX Document
 
-After running the function, `document.tex` will be updated as follows:
+After execution, `document.tex` becomes:
 
-```latex \documentclass{article}
+```latex
+\documentclass{article}
 \begin{document}
 
 Here is the computed result:
