@@ -7,7 +7,7 @@
 ### Import the Library
 
 ```python
-from pytex_lib import write_to_latex
+from pytex_lib import wtl
 ```
 
 ### Define a Function using the write_to_latex Decorator

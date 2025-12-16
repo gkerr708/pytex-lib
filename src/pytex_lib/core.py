@@ -1,83 +1,95 @@
+from __future__ import annotations
+
+from functools import wraps
 from pathlib import Path
+from typing import Callable
 
-def write_to_latex(file_path: Path, keyword: str, ): 
-    def decorator(func):
-        """
-        Decorator that writes the output of a function to a LaTeX document
-    
-        Note: The line after the keyword is removed from the LaTeX document
-        
-        args:
-            file_path: Path to the LaTeX document
-            keyword: Keyword in the LaTeX document where the output is written
-    
-        """
-        def wrapper(*args, **kwargs):
-            output = func(*args, **kwargs)  # Get the function output
-            pl_file_path = Path(file_path)
-    
-            # Read the LaTeX file and modify its content
-            modified_lines = []
-            skip_next_line = False
-            with pl_file_path.open('r') as file:
-                for line in file:
-                    # Removed the line below the keyword
-                    if skip_next_line:
-                        skip_next_line = False
-                        continue
-                    # Append every line to the new file
-                    modified_lines.append(line)
-                    # If the keyword, append a new line
-                    if keyword in line:  # Match the keyword
-                        skip_next_line = True
-                        modified_lines.append(output + '\n')  # Insert the function output after it
-    
-    
-            # Write the updated content back to the file
-            pl_file_path.write_text(''.join(modified_lines))
-            print(f"Output from '{func.__name__}' written to '{pl_file_path}'")
-    
-        return wrapper
-    return decorator
-
-
-def str_to_latex(x: str, keyword: str, file_path: Path):
+def wtl(
+    x: str,
+    *,
+    keyword: str,
+    file_path: Path | str,
+    verbose: bool = False,
+    encoding: str = "utf-8",
+) -> None:
     """
-    Converts an input string to a LaTeX formatted string by replacing a specified keyword.
-    
-    Args:
-        input_string (str): The input string to be converted.
-        keyword (str): The keyword to be replaced in the input string.
-        file_path (Path): The path to the LaTeX document where the conversion will be applied.
+    Insert `x` on the line immediately AFTER the line containing `keyword`.
+    If there is already an inserted line there from a previous run, overwrite it.
+
+    Assumption (same as your old code): the "value line" is exactly ONE line
+    immediately below the keyword line.
     """
-    pl_file_path = Path(file_path)
+    path = Path(file_path)
+
+    lines = path.read_text(encoding=encoding).splitlines(keepends=True)
+
+    out: list[str] = []
+    i = 0
+    inserted = False
+
+    while i < len(lines):
+        line = lines[i]
+        out.append(line)
+
+        if (not inserted) and (keyword in line):
+            # overwrite the next line (if any) by skipping it
+            if i + 1 < len(lines):
+                i += 1  # skip one line after keyword
+            out.append(x.rstrip("\n") + "\n")
+            inserted = True
+
+        i += 1
+
+    if not inserted:
+        raise ValueError(f"Keyword '{keyword}' not found in {path}")
+
+    path.write_text("".join(out), encoding=encoding)
+    if verbose:
+        print(f"Output written to '{path}'")
+
+
+def write_to_latex(func: Callable[..., str]) -> Callable[..., str]:
+    """
+    Decorator: run the function, then write its string return value to LaTeX.
+
+    Usage:
+        @write_to_latex
+        def compute_square(x): ...
+        compute_square(4, file_path="doc.tex", keyword="RESULT_PLACEHOLDER")
+    """
+
+    @wraps(func)
+    def wrapper(*args: object, **kwargs: object) -> str:
+        file_path_obj = kwargs.pop("file_path", None)
+        keyword_obj = kwargs.pop("keyword", None)
+        verbose_obj = kwargs.pop("verbose", False)
     
-    # Read the LaTeX file and modify its content
-    modified_lines = []
-    skip_next_line = False
-    with pl_file_path.open('r') as file:
-        for line in file:
-            # Removed the line below the keyword
-            if skip_next_line:
-                skip_next_line = False
-                continue
-            # Append every line to the new file
-            modified_lines.append(line)
-            # If the keyword, append a new line
-            if keyword in line:  # Match the keyword
-                skip_next_line = True
-                modified_lines.append(x+ '\n')  # Insert the function output after it
+        file_path: Path | str | None
+        if file_path_obj is None or isinstance(file_path_obj, (Path, str)):
+            file_path = file_path_obj
+        else:
+            raise TypeError("file_path must be Path or str")
     
+        keyword: str | None
+        if keyword_obj is None or isinstance(keyword_obj, str):
+            keyword = keyword_obj
+        else:
+            raise TypeError("keyword must be str")
     
-    # Write the updated content back to the file
-    pl_file_path.write_text(''.join(modified_lines))
-    print(f"Output written to '{pl_file_path}'")
+        verbose: bool
+        if isinstance(verbose_obj, bool):
+            verbose = verbose_obj
+        else:
+            raise TypeError("verbose must be bool")
 
+        result = func(*args, **kwargs)
+        if not isinstance(result, str):
+            raise TypeError(f"{func.__name__} must return a str, got {type(result).__name__}")
 
+        if file_path is None or keyword is None:
+            raise TypeError("Missing required keyword arguments: file_path=..., keyword=...")
 
-if __name__ == '__main__':
+        wtl(result, keyword=keyword, file_path=file_path, verbose=verbose)
+        return result
 
-    @write_to_latex(Path('output.tex'), '%% OUTPUT HERE %%')
-    def get_output():
-        return 'Hello, World!'
-
+    return wrapper

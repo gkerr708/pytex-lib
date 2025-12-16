@@ -1,4 +1,4 @@
-from .core import write_to_latex
+from .core import write_to_latex, wtl
 
 __all__ = ["write_to_latex"]
 __version__ = "0.1.11"
